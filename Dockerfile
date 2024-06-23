@@ -86,7 +86,7 @@ COPY ./src/ubuntu/install/cursors $INST_SCRIPTS/cursors/
 RUN bash $INST_SCRIPTS/cursors/install_cursors.sh && rm -rf $INST_SCRIPTS/cursors/
 
 ###
-RUN apt install konsole curl dolphin firefox -y
+RUN apt install konsole curl dolphin firefox-esr-l10n-de -y
 
 ### Install Squid
 COPY ./src/ubuntu/install/squid/install/ $INST_SCRIPTS/squid_install/
