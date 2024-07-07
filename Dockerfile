@@ -171,12 +171,13 @@ LABEL "org.opencontainers.image.authors"='Krim'
 LABEL "com.kasmweb.image"="true"
 
 ### Environment config
-ARG DISTRO=debian
+ARG DISTRO=ubuntu
+ARG EXTRA_SH=noop.sh
 ARG LANG='de_DE.UTF-8'
 ARG LANGUAGE='de_DE:de'
 ARG LC_ALL='de_DE.UTF-8'
 ARG START_PULSEAUDIO=1
-ARG START_DE=xfce
+ARG START_XFCE4=1
 ARG TZ='Etc/UTC'
 ENV AUDIO_PORT=4901 \
     DEBIAN_FRONTEND=noninteractive \
