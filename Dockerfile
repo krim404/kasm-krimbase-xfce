@@ -40,11 +40,9 @@ COPY ./src/ubuntu/install/maximize_script $STARTUPDIR/
 COPY ./src/ubuntu/install/fonts $INST_SCRIPTS/fonts/
 RUN bash $INST_SCRIPTS/fonts/install_custom_fonts.sh && rm -rf $INST_SCRIPTS/fonts/
 
-### Install KDE
-COPY ./src/ubuntu/install/kde $INST_SCRIPTS/kde/
-RUN bash $INST_SCRIPTS/kde/install_kde.sh && rm -rf $INST_SCRIPTS/kde/
-COPY ./src/ubuntu/install/kde/desktop_environment_policy.sh $STARTUPDIR/
-COPY ./src/ubuntu/install/kde/auto_start.desktop $HOME/.config/autostart/apply_policy.desktop
+### Install XFCE
+COPY ./src/ubuntu/install/xfce $INST_SCRIPTS/xfce/
+RUN bash $INST_SCRIPTS/xfce/install_xfce_ui.sh && rm -rf $INST_SCRIPTS/xfce/
 
 ### Install kasm_vnc dependencies and binaries
 COPY ./src/ubuntu/install/kasm_vnc $INST_SCRIPTS/kasm_vnc/
@@ -169,7 +167,7 @@ ARG LANG='de_DE.UTF-8'
 ARG LANGUAGE='de_DE:de'
 ARG LC_ALL='de_DE.UTF-8'
 ARG START_PULSEAUDIO=1
-ARG START_DE=kde5
+ARG START_DE=xfce
 ARG TZ='Etc/UTC'
 ENV AUDIO_PORT=4901 \
     DEBIAN_FRONTEND=noninteractive \
