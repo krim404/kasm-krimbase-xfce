@@ -1,10 +1,10 @@
 #### Build Stage ####
-ARG BASE_IMAGE="debian:bookworm-slim"
+ARG BASE_IMAGE="ubuntu:24.04"
 FROM $BASE_IMAGE AS base_layer
 
 ### Environment config
 ARG BG_IMG=bg_kasmos.png
-ARG DISTRO=debian
+ARG DISTRO=ubuntu
 ARG LANG='de_DE.UTF-8'
 ARG LANGUAGE='de_DE:de'
 ARG LC_ALL='de_DE.UTF-8'
@@ -43,6 +43,15 @@ RUN bash $INST_SCRIPTS/fonts/install_custom_fonts.sh && rm -rf $INST_SCRIPTS/fon
 ### Install XFCE
 COPY ./src/ubuntu/install/xfce $INST_SCRIPTS/xfce/
 RUN bash $INST_SCRIPTS/xfce/install_xfce_ui.sh && rm -rf $INST_SCRIPTS/xfce/
+ADD ./src/ubuntu/install/xfce/.config/ $HOME/.config/
+ADD /src/common/resources/images/bg_kasm.png  /usr/share/backgrounds/bg_kasm.png
+ADD /src/common/resources/images/$BG_IMG  /usr/share/backgrounds/bg_default.png
+ADD /src/common/resources/images/icon_ubuntu.png /usr/share/extra/icons/icon_ubuntu.png
+ADD /src/common/resources/images/icon_ubuntu.png /usr/share/extra/icons/icon_default.png
+ADD /src/common/resources/images/icon_kasm.png /usr/share/extra/icons/icon_kasm.png
+ADD /src/common/resources/images/egress_info.svg /usr/share/extra/icons/egress_info.svg
+ADD /src/common/resources/images/egress_error.svg /usr/share/extra/icons/egress_error.svg
+ADD /src/common/resources/images/egress_offline.svg /usr/share/extra/icons/egress_offline.svg
 
 ### Install kasm_vnc dependencies and binaries
 COPY ./src/ubuntu/install/kasm_vnc $INST_SCRIPTS/kasm_vnc/
