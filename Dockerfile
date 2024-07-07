@@ -3,7 +3,7 @@ ARG BASE_IMAGE="ubuntu:24.04"
 FROM $BASE_IMAGE AS base_layer
 
 ### Environment config
-ARG BG_IMG=bg_kasmos.png
+ARG BG_IMG=bg_parrotos6.png
 ARG DISTRO=ubuntu
 ARG LANG='de_DE.UTF-8'
 ARG LANGUAGE='de_DE:de'
