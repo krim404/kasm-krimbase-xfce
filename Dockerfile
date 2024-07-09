@@ -3,7 +3,7 @@ ARG BASE_IMAGE="ubuntu:22.04"
 FROM $BASE_IMAGE AS base_layer
 
 ### Environment config
-ARG BG_IMG=bg_kasm.png
+ARG BG_IMG=bg_krim.jpg
 ARG EXTRA_SH=noop.sh
 ARG DISTRO=ubuntu
 ARG LANG='en_US.UTF-8'
