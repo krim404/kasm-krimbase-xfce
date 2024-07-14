@@ -6,7 +6,7 @@ stages:
 variables:
   IMAGE_NAME: $HARBOR_HOST/library/$CI_PROJECT_NAME
 
-build-and-push:
+build:
   image: docker:27.0.3
   stage: build
   services:
