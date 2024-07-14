@@ -151,6 +151,9 @@ RUN touch $STARTUPDIR/wm.log \
     && chown 1000:root /var/run/pulse \
     && rm -Rf /home/kasm-default-profile/.launchpadlib
 
+### Do Update
+RUN apt-get update && apt-get dist-upgrade -y
+
 ### Cleanup job
 COPY ./src/ubuntu/install/cleanup $INST_SCRIPTS/cleanup/
 RUN bash $INST_SCRIPTS/cleanup/cleanup.sh kasmos && rm -rf $INST_SCRIPTS/cleanup/
