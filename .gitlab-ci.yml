@@ -1,10 +1,9 @@
 stages:
   - build
-  - scan
   - push
 
 variables:
-  IMAGE_NAME: $HARBOR_HOST/library/$CI_PROJECT_NAME
+  IMAGE_NAME: $HARBOR_HOST/kasm/$CI_PROJECT_NAME
 
 build:
   image: docker:27.0.3
