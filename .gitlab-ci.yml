@@ -7,14 +7,18 @@ variables:
   IMAGE_NAME: $HARBOR_HOST/kasm/$CI_PROJECT_NAME
 
 build:
-  image: docker:27.0.3
+  image: docker:27.2.1
   stage: build
   services:
-    - docker:27.0.3-dind
+    - docker:27.2.1-dind
   before_script:
     - docker login -u $HARBOR_USERNAME -p $HARBOR_PASSWORD $HARBOR_HOST
   script:
     - docker build -t $IMAGE_NAME:$CI_COMMIT_REF_SLUG .
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH
+
 
 trivy_scan:
   stage: scan
@@ -29,7 +33,7 @@ trivy_scan:
 
 push:
   stage: push
-  image: docker:27.0.3
+  image: docker:27.2.1
   before_script:
     - docker login -u $HARBOR_USERNAME -p $HARBOR_PASSWORD $HARBOR_HOST
   script:
