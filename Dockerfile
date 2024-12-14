@@ -24,6 +24,17 @@ ENV DEBIAN_FRONTEND=noninteractive \
 WORKDIR $HOME
 RUN mkdir -p $HOME/Desktop
 
+RUN apt-get update && apt-get install -y grep sed \
+    && if ! grep -q "contrib.*non-free" /etc/apt/sources.list; then \
+        if ! grep -q "contrib\|non-free" /etc/apt/sources.list; then \
+            sed -i '/^deb/ s/$/ contrib non-free/' /etc/apt/sources.list; \
+        elif ! grep -q "contrib" /etc/apt/sources.list; then \
+            sed -i '/^deb/ s/$/ contrib/' /etc/apt/sources.list; \
+        elif ! grep -q "non-free" /etc/apt/sources.list; then \
+            sed -i '/^deb/ s/$/ non-free/' /etc/apt/sources.list; \
+        fi \
+    fi \
+    && apt-get update
 
 ### Setup package rules
 COPY ./src/ubuntu/install/package_rules $INST_SCRIPTS/package_rules/
