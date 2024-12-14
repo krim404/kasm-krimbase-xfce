@@ -24,18 +24,6 @@ ENV DEBIAN_FRONTEND=noninteractive \
 WORKDIR $HOME
 RUN mkdir -p $HOME/Desktop
 
-RUN apt-get update && apt-get install -y grep sed \
-    && if ! grep -q "contrib.*non-free" /etc/apt/sources.list; then \
-        if ! grep -q "contrib\|non-free" /etc/apt/sources.list; then \
-            sed -i '/^deb/ s/$/ contrib non-free/' /etc/apt/sources.list; \
-        elif ! grep -q "contrib" /etc/apt/sources.list; then \
-            sed -i '/^deb/ s/$/ contrib/' /etc/apt/sources.list; \
-        elif ! grep -q "non-free" /etc/apt/sources.list; then \
-            sed -i '/^deb/ s/$/ non-free/' /etc/apt/sources.list; \
-        fi \
-    fi \
-    && apt-get update
-
 ### Setup package rules
 COPY ./src/ubuntu/install/package_rules $INST_SCRIPTS/package_rules/
 RUN bash $INST_SCRIPTS/package_rules/package_rules.sh && rm -rf $INST_SCRIPTS/package_rules/
@@ -125,6 +113,8 @@ RUN bash $INST_SCRIPTS/virtualgl/install_virtualgl.sh && rm -rf $INST_SCRIPTS/vi
 ### Sysbox support
 COPY ./src/ubuntu/install/sysbox $INST_SCRIPTS/sysbox/
 RUN bash $INST_SCRIPTS/sysbox/install_systemd.sh && rm -rf $INST_SCRIPTS/sysbox/
+
+RUN apt install software-properties-common -y && apt-add-repository contrib && apt-add-repository non-free
 
 ### Create user and home directory for base images that don't already define it
 RUN (groupadd -g 1000 kasm-user \
