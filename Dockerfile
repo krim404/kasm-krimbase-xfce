@@ -138,6 +138,8 @@ RUN bash $INST_SCRIPTS/sysbox/install_systemd.sh && rm -rf $INST_SCRIPTS/sysbox/
 COPY ./src/ubuntu/install/emblems $INST_SCRIPTS/emblems/
 RUN bash $INST_SCRIPTS/emblems/install_emblems.sh && rm -rf $INST_SCRIPTS/emblems/
 
+RUN apt install software-properties-common -y && apt-add-repository contrib && apt-add-repository non-free
+
 ### Create user and home directory for base images that don't already define it
 RUN (groupadd -g 1000 kasm-user \
     && useradd -M -u 1000 -g 1000 kasm-user \
@@ -242,9 +244,9 @@ ENV AUDIO_PORT=4901 \
 
 ### Ports and user
 EXPOSE $VNC_PORT \
-       $NO_VNC_PORT \
-       $UPLOAD_PORT \
-       $AUDIO_PORT
+    $NO_VNC_PORT \
+    $UPLOAD_PORT \
+    $AUDIO_PORT
 WORKDIR $HOME
 USER 1000
 
